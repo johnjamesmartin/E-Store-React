@@ -7,7 +7,7 @@ import styled from 'styled-components';
 export default class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-sm bg-dark navbar-dark px-sm-5">
+      <NavbarWrapper className="navbar navbar-expand-sm bg-dark navbar-dark px-sm-5">
         <Link to="/">
           <img src={logo} alt="store" className="navbar-brand" />
         </Link>
@@ -28,7 +28,7 @@ export default class Navbar extends Component {
             My cart
           </ButtonContainer>
         </Link>
-      </nav>
+      </NavbarWrapper>
     );
   }
 }
@@ -37,7 +37,7 @@ const NavbarWrapper = styled.nav`
   background: var(--main-blue);
   .nav-link {
     color: var(--main-white) !important;
-    font-size: 1.3rem;
-    text-transform: capitalize;
+    font-size: 1.2rem;
+    text-transform: capitalize !important;
   }
 `;
