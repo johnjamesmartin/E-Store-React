@@ -5,14 +5,7 @@ import { storeProducts } from '../data';
 import { ProductConsumer } from '../context';
 
 export default class ProductList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: storeProducts
-    };
-  }
   render() {
-    console.log(this.state.products);
     return (
       <div>
         <React.Fragment>
@@ -21,8 +14,10 @@ export default class ProductList extends Component {
               <Title name="our" title="products" />
               <div className="row">
                 <ProductConsumer>
-                  {hello => {
-                    return <h1>{hello}</h1>;
+                  {value => {
+                    return value.products.map(product => {
+                      return <Product key={product.id} product={product} />;
+                    });
                   }}
                 </ProductConsumer>
               </div>
