@@ -14,17 +14,26 @@ class ProductProvider extends Component {
       detailProduct: detailProduct,
       cart: [],
       modalOpen: false,
-      modalProduct: detailProduct
+      modalProduct: detailProduct,
+      cartSubtotal: 0,
+      cartTax: 0,
+      cartTotal: 0
     };
     this.handleDetail = this.handleDetail.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.setProducts = this.setProducts.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.clearCart = this.clearCart.bind(this);
   }
+
   componentDidMount() {
     this.setProducts();
   }
+
   setProducts() {
     let tempProducts = [];
     storeProducts.forEach(item => {
@@ -58,7 +67,6 @@ class ProductProvider extends Component {
     product.count = 1;
     const price = product.price;
     product.total = price;
-    //
     this.setState(
       () => {
         return { products: tempProducts, cart: [...this.state.cart, product] };
@@ -87,6 +95,22 @@ class ProductProvider extends Component {
     });
   }
 
+  increment(id) {
+    //
+  }
+
+  decrement(id) {
+    //
+  }
+
+  removeItem(id) {
+    //
+  }
+
+  clearCart() {
+    //
+  }
+
   render() {
     return (
       <ProductContext.Provider
@@ -96,7 +120,11 @@ class ProductProvider extends Component {
           addToCart: this.addToCart,
           setProducts: this.setProducts,
           openModal: this.openModal,
-          closeModal: this.closeModal
+          closeModal: this.closeModal,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+          clearCart: this.clearCart
         }}
       >
         {this.props.children}
