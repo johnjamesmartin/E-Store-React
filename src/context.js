@@ -28,6 +28,7 @@ class ProductProvider extends Component {
     this.decrement = this.decrement.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.clearCart = this.clearCart.bind(this);
+    this.addTotals = this.addTotals.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +73,7 @@ class ProductProvider extends Component {
         return { products: tempProducts, cart: [...this.state.cart, product] };
       },
       () => {
-        console.log(this.state);
+        this.addTotals();
       }
     );
   }
@@ -111,6 +112,21 @@ class ProductProvider extends Component {
     //
   }
 
+  addTotals() {
+    let subTotal = 0;
+    this.state.cart.map(item => (subTotal += item.total));
+    const tempTax = subTotal * 0.175;
+    const tax = parseFloat(tempTax.toFixed(2));
+    const total = subTotal + tax;
+    this.setState(() => {
+      return {
+        cartSubTotal: subTotal,
+        cartTax: tax,
+        cartTotal: total
+      };
+    });
+  }
+
   render() {
     return (
       <ProductContext.Provider
@@ -124,7 +140,8 @@ class ProductProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          addTotals: this.addTotals
         }}
       >
         {this.props.children}
