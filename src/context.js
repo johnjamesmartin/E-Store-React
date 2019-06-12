@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { storeProducts, detailProduct } from './data';
 
 const ProductContext = React.createContext();
-// Provider
-
-// Consumer
 
 class ProductProvider extends Component {
   constructor(props) {
@@ -97,10 +94,45 @@ class ProductProvider extends Component {
   }
 
   increment(id) {
-    //
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find(item => item.id === id);
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count + 1;
+    product.total = product.count * product.price;
+    this.setState(
+      () => {
+        return {
+          cart: [...tempCart]
+        };
+      },
+      () => {
+        this.addTotals();
+      }
+    );
   }
 
   decrement(id) {
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find(item => item.id === id);
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count - 1;
+    if (product.count === 0) {
+      this.removeItem(id);
+    } else {
+      product.total = product.count * product.price;
+      this.setState(
+        () => {
+          return {
+            cart: [...tempCart]
+          };
+        },
+        () => {
+          this.addTotals();
+        }
+      );
+    }
     //
   }
 
